@@ -33,7 +33,7 @@ def generate_html(files, output_dir, output_file):
     # Ітеруємося по кожному файлу у списку та додаємо його як елемент списку в HTML
     for file in files:
         # Додаємо кожен файл як елемент списку
-        html_content += f"            <li>{file}</li>\n"
+        html_content += f"            <li><img src={file+'.ico'}>{file}</li>\n"
 
     # Правильно закриваємо HTML теги
     html_content += """
