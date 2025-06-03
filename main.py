@@ -1,5 +1,6 @@
 import win32com.client
 import os
+from html_generator import generate_html
 
 # Шляхи папок
 desktop = r"C:\Users\artur\Desktop\\"
@@ -61,4 +62,12 @@ shortcut_path = desktop + input("Вкажіть назву ярлика:") + ".l
 icon_path = icon + input("Вкажіть назву іконки:") + ".ico"  # Вкажіть шлях до нового файлу іконки
 
 change_existing_shortcut_icon(shortcut_path, icon_path)
+
+directory_path = r"C:\Users\artur\Pictures\icon-changer"
+output_dir = "web"
+output_file = "index.html"
+
+files = scan_directory(directory_path)
+generate_html(files, output_dir, output_file)
+print(f"HTML файл успішно створено: {os.path.join(output_dir, output_file)}")
 
