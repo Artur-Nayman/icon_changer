@@ -1,16 +1,18 @@
 from flask import Flask, render_template, request, jsonify
 import os
-from main import change_existing_shortcut_icon
+from main import change_existing_shortcut_icon, scan_directory
 
 app = Flask(__name__)
 
 icon_directory = r"C:\Users\artur\Documents\pycharm_projects\icon-changer\static\icons"
+desktop_path = r"C:\Users\artur\Desktop"
 
 @app.route('/')
 def index():
     try:
         icons = [f for f in os.listdir(icon_directory) if f.endswith('.ico')]
-        return render_template('index.html', icons=icons)
+        shortcuts = scan_directory(desktop_path)
+        return render_template('index.html', icons=icons, shortcuts=shortcuts)
     except Exception as e:
         return f"An error occurred: {str(e)}", 500
 
@@ -24,7 +26,7 @@ def select_icon():
         if not selected_icon or not shortcut_name:
             return jsonify({"status": "error", "message": "Icon or shortcut name not provided"}), 400
 
-        shortcut_path = os.path.join(r"C:\Users\artur\Desktop", f"{shortcut_name}.lnk")
+        shortcut_path = os.path.join(desktop_path, f"{shortcut_name}.lnk")
         icon_path = os.path.join(icon_directory, selected_icon)
 
         if not os.path.exists(shortcut_path):

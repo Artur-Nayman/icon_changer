@@ -3,38 +3,154 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Вибір іконки</title>
+    <title>Select an icon</title>
     <style>
         body {
             font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #333446;
+            padding: 20px;
         }
+
+        .container {
+            display: flex;
+            width: 95%;
+            max-width: 1200px;
+            gap: 20px;
+        }
+
+        .rounded-container {
+            background-color: #7F8CAA;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-height: 80vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .icons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            overflow-y: auto;
+            max-height: 70vh;
+            padding: 10px;
+        }
+
         .icon {
-            display: inline-block;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             margin: 10px;
             text-align: center;
             cursor: pointer;
             border: 1px solid #ccc;
             padding: 10px;
-            border-radius: 5px;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+            transition: transform 0.2s, box-shadow 0.2s;
+            min-width: 80px;
         }
+
+        .icon:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
         .icon img {
             width: 50px;
             height: 50px;
         }
+
         .icon p {
             margin: 5px 0 0;
+            font-size: 14px;
+            word-break: break-all;
+        }
+
+        .sidebar {
+            background-color: #7F8CAA;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 20%;
+            max-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        .search-container {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .search-container input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        .shortcuts-list {
+            margin-top: 20px;
+        }
+
+        .shortcuts-list h2 {
+            text-align: center;
+        }
+
+        .shortcuts-list ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .shortcuts-list li {
+            padding: 8px;
+            margin: 5px 0;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            text-align: center;
         }
     </style>
 </head>
 <body>
-    <h1>Виберіть іконку</h1>
-    <div id="icons">
-        {% for icon in icons %}
-        <div class="icon" onclick="selectIcon('{{ icon }}')">
-            <img src="{{ url_for('static', filename='icons/' + icon) }}" alt="{{ icon }}">
-            <p>{{ icon }}</p>
+    <div class="container">
+        <div class="rounded-container">
+            <h1 style="text-align: center;">Choose one from your installed icons:</h1>
+            <div class="icons">
+                {% for icon in icons %}
+                <div class="icon" onclick="selectIcon('{{ icon }}')">
+                    <img src="{{ url_for('static', filename='icons/' + icon) }}" alt="{{ icon }}">
+                    <p>{{ icon }}</p>
+                </div>
+                {% endfor %}
+            </div>
         </div>
-        {% endfor %}
+        <div class="sidebar">
+            <div class="search-container">
+                <input type="text" placeholder="Пошук...">
+            </div>
+            <div class="shortcuts-list">
+                <h2>Shortcuts on desktop</h2>
+                <ul>
+                    {% for shortcut in shortcuts %}
+                    <li>{{ shortcut }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -50,7 +166,7 @@
                 })
                 .then(response => response.json())
                 .then(data => {
-                    alert('Вибрана іконка: ' + data.icon + ' для ярлика: ' + data.shortcut);
+                    alert('Chosen icon: ' + data.icon + ' for shortcut: ' + data.shortcut);
                 });
             }
         }
