@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вибір іконки</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .icon {
+            display: inline-block;
+            margin: 10px;
+            text-align: center;
+            cursor: pointer;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .icon img {
+            width: 50px;
+            height: 50px;
+        }
+        .icon p {
+            margin: 5px 0 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Виберіть іконку</h1>
+    <div id="icons">
+        {% for icon in icons %}
+        <div class="icon" onclick="selectIcon('{{ icon }}')">
+            <img src="{{ url_for('static', filename='icons/' + icon) }}" alt="{{ icon }}">
+            <p>{{ icon }}</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <script>
+        function selectIcon(icon) {
+            const shortcutName = prompt("Введіть ім'я ярлика:");
+            if (shortcutName) {
+                fetch('/select_icon', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ icon: icon, shortcut: shortcutName }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert('Вибрана іконка: ' + data.icon + ' для ярлика: ' + data.shortcut);
+                });
+            }
+        }
+    </script>
+</body>
+</html>

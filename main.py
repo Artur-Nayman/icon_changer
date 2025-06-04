@@ -1,11 +1,10 @@
 import win32com.client
 import os
-from html_generator import generate_html
 
 # Шляхи папок
 desktop = r"C:\Users\artur\Desktop\\"
 icon = r"C:\Users\artur\Pictures\icon-changer\\"
-directory_path = r"C:\Users\artur\Pictures\icon-changer"
+directory_path = r"C:\Users\artur\Documents\pycharm_projects\icon-changer\static\icons"
 desktop_path = r"C:\Users\artur\Desktop"
 
 #Функція зміни іконки
@@ -64,10 +63,9 @@ icon_path = icon + input("Вкажіть назву іконки:") + ".ico"  # 
 change_existing_shortcut_icon(shortcut_path, icon_path)
 
 directory_path = r"C:\Users\artur\Pictures\icon-changer"
-output_dir = "web"
+output_dir = "templates"
 output_file = "index.html"
 
 files = scan_directory(directory_path)
-generate_html(files, output_dir, output_file)
 print(f"HTML файл успішно створено: {os.path.join(output_dir, output_file)}")
 
