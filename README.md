@@ -1,6 +1,3 @@
-Here's a `README.md` for your project that explains how to set up and use the application:
-
-```markdown
 # Icon Changer Application
 
 This application allows users to change the icons of their desktop shortcuts through a web interface. Users can select an icon from a list and apply it to a chosen shortcut.
