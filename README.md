@@ -1,6 +1,4 @@
-Ось оновлений варіант твого `README.md`, що враховує нову функцію конвертації і видалення PNG файлів після створення ICO:
 
----
 
 # Icon Changer Application
 
@@ -52,6 +50,7 @@ Before you begin, ensure you have the following installed:
    ```bash
    python app.py
    ```
+   Or just launch from dist/app.exe
 
 2. **Access the web interface**:
 
@@ -96,6 +95,3 @@ Before you begin, ensure you have the following installed:
 
 This project is licensed under the MIT License.
 
----
-
-Якщо хочеш, можу допомогти ще з автоматичним викликом `reformat_file` при запуску Flask, щоб конвертація відбувалась автоматично перед рендером сторінки.
