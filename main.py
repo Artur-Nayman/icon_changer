@@ -1,6 +1,8 @@
 import win32com.client
 import pythoncom
 import os
+from PIL import Image
+from config import icon_directory
 
 def change_existing_shortcut_icon(shortcut_path, icon_path):
     if not os.path.exists(shortcut_path):
@@ -44,3 +46,15 @@ def scan_directory(directory_path):
     except Exception as e:
         print(f"Помилка при скануванні директорії: {e}")
         return []
+
+def reformat_file(files, icon_directory):
+    for file in files:
+        if file.endswith(('.ico', '.png')):
+            file_path = os.path.join(icon_directory, file)
+            img = Image.open(file_path)
+            img = img.convert('RGBA')
+            new_path = os.path.splitext(file_path)[0] + '.ico'
+            img.save(new_path, format='ICO')
+            if file.lower().endswith('.png'):
+                os.remove(file_path)
+                print(f"Видалено оригінальний PNG: {file_path}")

@@ -1,15 +1,18 @@
 from flask import Flask, render_template, request, jsonify
 import os
-from main import change_existing_shortcut_icon, scan_directory
-
+from main import change_existing_shortcut_icon, scan_directory, reformat_file
+from config import icon_directory, desktop_path
 app = Flask(__name__)
 
-icon_directory = r"C:\Users\artur\Documents\pycharm_projects\icon-changer\static\icons"
-desktop_path = r"C:\Users\artur\Desktop"
 
 @app.route('/')
 def index():
     try:
+        # Запускаємо обробку файлів перед відображенням
+        icon_files = [f for f in os.listdir(icon_directory) if f.endswith(('.ico', '.png'))]
+        reformat_file(icon_files, icon_directory)
+
+        # Тепер вже зчитуємо лише .ico
         icons = [f for f in os.listdir(icon_directory) if f.endswith('.ico')]
         shortcuts = scan_directory(desktop_path)
         return render_template('index.html', icons=icons, shortcuts=shortcuts)
