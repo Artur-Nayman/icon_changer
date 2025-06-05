@@ -1,5 +1,4 @@
 
----
 
 # Icon Changer Application
 
@@ -96,6 +95,3 @@ Before you begin, ensure you have the following installed:
 
 This project is licensed under the MIT License.
 
----
-
-Якщо хочеш, можу допомогти ще з автоматичним викликом `reformat_file` при запуску Flask, щоб конвертація відбувалась автоматично перед рендером сторінки.
