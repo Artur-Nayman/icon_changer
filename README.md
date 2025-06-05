@@ -79,7 +79,7 @@ Before you begin, ensure you have the following installed:
 
 * `app.py`: The main Flask application file that serves the web interface.
 * `main.py`: Contains functions for scanning directories, changing shortcut icons, and converting icon files.
-* 'config.py': Contains paths to desktop and icons directories
+* `config.py`: Contains paths to desktop and icons directories
 * `templates/`: Contains HTML templates for the web interface.
 
   * `index.html`: The main template for displaying icons and shortcuts.
