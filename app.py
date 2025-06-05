@@ -2,8 +2,11 @@ from flask import Flask, render_template, request, jsonify
 import os
 from main import change_existing_shortcut_icon, scan_directory, reformat_file
 from config import icon_directory, desktop_path
-app = Flask(__name__)
+import requests
+from flask_cors import CORS
 
+app = Flask(__name__)
+CORS(app)
 
 @app.route('/')
 def index():
@@ -47,6 +50,30 @@ def select_icon():
 
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
+
+
+@app.route('/download_icon', methods=['POST'])
+def download_icon():
+    data = request.get_json()
+    icon_url = data.get('icon_url')
+
+    if not icon_url:
+        return jsonify({"message": "URL не вказано"}), 400
+
+    try:
+        icon_name = os.path.basename(icon_url)
+        save_path = os.path.join(icon_directory, icon_name)
+
+        response = requests.get(icon_url)
+        response.raise_for_status()
+
+        with open(save_path, 'wb') as f:
+            f.write(response.content)
+
+        return jsonify({"message": f"Іконка '{icon_name}' збережена!"})
+
+    except Exception as e:
+        return jsonify({"message": f"Помилка: {str(e)}"}), 500
 
 if __name__ == '__main__':
     app.run(debug=True)
