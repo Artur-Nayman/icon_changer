@@ -52,7 +52,7 @@
             padding: 20px;
             max-width: calc(90% - 270px);
             margin: 0;
-            align-content: flex-start; /* Додаємо, щоб іконки не розтягувалися на всю висоту */
+            align-content: flex-start;
         }
 
         .icon-wrapper {
@@ -79,6 +79,10 @@
             margin-top: 5px;
             font-size: 13px;
             word-break: break-word;
+        }
+
+        .hidden {
+            display: none;
         }
 
         /* Кнопка Встановити */
@@ -174,7 +178,7 @@
         <!-- Бічна панель -->
         <div class="sidebar">
             <div class="search-container">
-                <input type="text" placeholder="Пошук...">
+                <input type="text" id="searchInput" placeholder="Пошук..." onkeyup="filterIcons()">
             </div>
             <div class="shortcuts-list">
                 <h2>Shortcuts on desktop</h2>
@@ -202,6 +206,23 @@
                 .then(data => {
                     alert('Вибрана іконка: ' + data.icon + ' для ярлика: ' + data.shortcut);
                 });
+            }
+        }
+
+        function filterIcons() {
+            const input = document.getElementById('searchInput');
+            const filter = input.value.toUpperCase();
+            const iconGrid = document.getElementById('iconGrid');
+            const icons = iconGrid.getElementsByClassName('icon-wrapper');
+
+            for (let i = 0; i < icons.length; i++) {
+                const iconLabel = icons[i].getElementsByClassName('icon-label')[0];
+                const txtValue = iconLabel.textContent || iconLabel.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    icons[i].style.display = "";
+                } else {
+                    icons[i].style.display = "none";
+                }
             }
         }
     </script>
