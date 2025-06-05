@@ -52,6 +52,7 @@ Before you begin, ensure you have the following installed:
    ```bash
    python app.py
    ```
+   Or just launch from dist/app.exe
 
 2. **Access the web interface**:
 
