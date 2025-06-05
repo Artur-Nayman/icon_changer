@@ -16,6 +16,34 @@
             padding: 20px;
         }
 
+            /* Navbar */
+    .navbar {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #7F8CAA;
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px;
+      padding: 15px 40px;
+      display: flex;
+      gap: 30px;
+      justify-content: center;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .navbar a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 16px;
+      transition: color 0.3s;
+    }
+
+    .navbar a:hover {
+      color: #e0e0e0;
+    }
+
         .container {
             display: flex;
             width: 95%;
@@ -126,6 +154,10 @@
     </style>
 </head>
 <body>
+ <nav class="navbar">
+    <a href="https://artur-nayman.github.io/icon-db-wesite/">Каталог</a>
+    <a href="http://127.0.0.1:5000">Завантажені</a>
+  </nav>
     <div class="container">
         <div class="rounded-container">
             <h1 style="text-align: center;">Choose one from your installed icons:</h1>
