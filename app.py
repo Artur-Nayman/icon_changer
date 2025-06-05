@@ -1,3 +1,4 @@
+#Run pyinstaller app.spec to do exe file
 from flask import Flask, render_template, request, jsonify
 import os
 from main import change_existing_shortcut_icon, scan_directory, reformat_file

@@ -3,116 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Select an icon</title>
+    <title>IconDB</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
             margin: 0;
-            background-color: #333446;
-            padding: 20px;
+            background-color: #f9f9f9;
         }
 
-            /* Navbar */
-    .navbar {
-      position: fixed;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      background-color: #7F8CAA;
-      border-bottom-left-radius: 20px;
-      border-bottom-right-radius: 20px;
-      padding: 15px 40px;
-      display: flex;
-      gap: 30px;
-      justify-content: center;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    }
-
-    .navbar a {
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 16px;
-      transition: color 0.3s;
-    }
-
-    .navbar a:hover {
-      color: #e0e0e0;
-    }
-
-        .container {
+        /* Навбар */
+        .navbar {
+            background-color: #333;
+            color: #fff;
+            padding: 0px 20px;
             display: flex;
-            width: 95%;
-            max-width: 1200px;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-links {
+            display: flex;
             gap: 20px;
         }
 
-        .rounded-container {
-            background-color: #7F8CAA;
-            border-radius: 20px;
-            padding: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 80%;
-            max-height: 80vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .icons {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-            overflow-y: auto;
-            max-height: 70vh;
-            padding: 10px;
-        }
-
-        .icon {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 10px;
-            text-align: center;
+        .nav-link {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
             cursor: pointer;
-            border: 1px solid #ccc;
+            transition: color 0.2s ease;
+        }
+
+        .nav-link:hover {
+            color: #ddd;
+        }
+
+        /* Основний контейнер */
+        .main-container {
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* Іконки */
+        .icon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            max-width: calc(90% - 270px);
+            margin: 0;
+            align-content: flex-start; /* Додаємо, щоб іконки не розтягувалися на всю висоту */
+        }
+
+        .icon-wrapper {
+            text-align: center;
+            background-color: #fff;
+            border-radius: 8px;
             padding: 10px;
-            border-radius: 10px;
-            background-color: #f9f9f9;
-            transition: transform 0.2s, box-shadow 0.2s;
-            min-width: 80px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.2s ease;
+            cursor: pointer;
         }
 
-        .icon:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        .icon-wrapper:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
 
-        .icon img {
-            width: 50px;
-            height: 50px;
+        .icon-wrapper img {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
         }
 
-        .icon p {
-            margin: 5px 0 0;
-            font-size: 14px;
-            word-break: break-all;
+        .icon-label {
+            margin-top: 5px;
+            font-size: 13px;
+            word-break: break-word;
         }
 
+        /* Кнопка Встановити */
+        .install-btn {
+            margin-top: 6px;
+            font-size: 12px;
+            padding: 4px 8px;
+            border: none;
+            border-radius: 4px;
+            background-color: #333;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .install-btn:hover {
+            background-color: #555;
+        }
+
+        /* Бічна панель */
         .sidebar {
-            background-color: #7F8CAA;
-            border-radius: 20px;
+            width: 300px;
+            background-color: #ddd;
+            border-radius: 10px;
             padding: 20px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 20%;
-            max-height: 80vh;
-            display: flex;
-            flex-direction: column;
-            overflow-y: auto;
+            height: fit-content;
+            float: right;
+            margin: 20px;
         }
 
         .search-container {
@@ -147,29 +142,36 @@
         .shortcuts-list li {
             padding: 8px;
             margin: 5px 0;
-            background-color: rgba(255, 255, 255, 0.2);
+            background-color: rgba(255, 255, 255, 0.5);
             border-radius: 5px;
             text-align: center;
         }
     </style>
 </head>
 <body>
- <nav class="navbar">
-    <a href="https://artur-nayman.github.io/icon-db-wesite/">Каталог</a>
-    <a href="http://127.0.0.1:5000">Завантажені</a>
-  </nav>
-    <div class="container">
-        <div class="rounded-container">
-            <h1 style="text-align: center;">Choose one from your installed icons:</h1>
-            <div class="icons">
-                {% for icon in icons %}
-                <div class="icon" onclick="selectIcon('{{ icon }}')">
-                    <img src="{{ url_for('static', filename='icons/' + icon) }}" alt="{{ icon }}">
-                    <p>{{ icon }}</p>
-                </div>
-                {% endfor %}
-            </div>
+    <!-- Навбар -->
+    <div class="navbar">
+        <h1>📁 База іконок</h1>
+        <div class="nav-links">
+            <a href="https://artur-nayman.github.io/icon-db-wesite/" class="nav-link">Каталог</a>
+            <a href="http://127.0.0.1:5000" class="nav-link">Завантажені</a>
         </div>
+    </div>
+
+    <!-- Основний контейнер -->
+    <div class="main-container">
+        <!-- Іконки -->
+        <div class="icon-grid" id="iconGrid">
+            <!-- Іконки будуть вставлені сюди динамічно -->
+            {% for icon in icons %}
+            <div class="icon-wrapper" onclick="selectIcon('{{ icon }}')">
+                <img src="{{ url_for('static', filename='icons/' + icon) }}" alt="{{ icon }}">
+                <div class="icon-label">{{ icon }}</div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Бічна панель -->
         <div class="sidebar">
             <div class="search-container">
                 <input type="text" placeholder="Пошук...">
@@ -198,7 +200,7 @@
                 })
                 .then(response => response.json())
                 .then(data => {
-                    alert('Chosen icon: ' + data.icon + ' for shortcut: ' + data.shortcut);
+                    alert('Вибрана іконка: ' + data.icon + ' для ярлика: ' + data.shortcut);
                 });
             }
         }
