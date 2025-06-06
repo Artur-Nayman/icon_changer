@@ -1,97 +1,99 @@
+# Icon Manager Flask App
 
+A web application for downloading, browsing, and applying icons to Windows desktop shortcuts.
 
-# Icon Changer Application
+---
 
-This application allows users to change the icons of their desktop shortcuts through a web interface. Users can select an icon from a list and apply it to a chosen shortcut. Additionally, the app supports automatic conversion of `.png` icons to `.ico` format and removes the original `.png` files after conversion.
+## Description
 
-## Features
+This project allows you to:
 
-* Display a list of available `.ico` icons (automatically converts `.png` files to `.ico`).
-* Display a list of desktop shortcuts.
-* Change the icon of a shortcut by selecting an icon and specifying the shortcut name.
-* Automatically convert `.png` icons to `.ico` format and delete original `.png` files.
+* Download icons from a remote GitHub repository to the local `static/icons/` folder.
+* Browse icons by categories.
+* Search icons by name.
+* Apply selected icons to existing Windows desktop shortcuts.
+* Store icons locally so they persist after application restarts.
 
-## Prerequisites
+---
 
-Before you begin, ensure you have the following installed:
+## Technologies Used
 
-* Python 3.6 or later
+* Python 3.x
 * Flask
-* `pywin32` for Windows-specific functionality
-* Pillow (`PIL`) for image processing
+* Requests
+* Flask-CORS
+* JavaScript (frontend)
+* HTML/CSS
 
-## Installation
-
-1. **Clone the repository** (if applicable) or download the project files.
-
-2. **Set up a virtual environment** (optional but recommended):
-
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows use `venv\Scripts\activate`
-   ```
-
-3. **Install the required packages**:
-
-   ```bash
-   pip install flask pywin32 pillow
-   ```
-
-4. **Configure the paths**:
-
-   * Ensure the paths in `main.py` and `app.py` are set correctly to point to your icons directory and desktop.
-
-## Usage
-
-1. **Run the application**:
-
-   Navigate to the directory containing `app.py` and run:
-
-   ```bash
-   python app.py
-   ```
-   Or just launch from dist/app.exe
-
-2. **Access the web interface**:
-
-   Open your web browser and go to `http://127.0.0.1:5000/`.
-
-3. **Icon conversion**:
-
-   When the app starts, it will automatically scan the icons directory for `.png` files, convert them to `.ico`, and delete the original `.png` files.
-
-4. **Select an icon**:
-
-   * Browse through the list of available `.ico` icons.
-   * Click on an icon to select it.
-
-5. **Choose a shortcut**:
-
-   * View the list of desktop shortcuts in the right panel.
-   * When prompted, enter the name of the shortcut you want to change.
-
-6. **Change the icon**:
-
-   * After selecting an icon and entering the shortcut name, the application will change the icon of the specified shortcut.
+---
 
 ## Project Structure
 
-* `app.py`: The main Flask application file that serves the web interface.
-* `main.py`: Contains functions for scanning directories, changing shortcut icons, and converting icon files.
-* `config.py`: Contains paths to desktop and icons directories
-* `templates/`: Contains HTML templates for the web interface.
+```
+/static/icons/        # Folder with icons
+/templates/index.html # Main web interface
+app.py                # Main Flask application
+main.py               # Logic for changing shortcut icons, scanning directories, and file formatting
+config.py             # Configuration (paths)
+```
 
-  * `index.html`: The main template for displaying icons and shortcuts.
-* `static/icons/`: Directory containing the icon files.
+---
 
-## Troubleshooting
+## Installation and Running
 
-* Ensure all paths in the code are correct and point to the right directories on your system.
-* Make sure you have the necessary permissions to change shortcut icons.
-* Check that `.png` files in the icons directory are valid images.
-* Check the console for any error messages if the application does not work as expected.
+1. Clone the repository:
+
+```bash
+git clone https://github.com/yourusername/your-repo.git
+cd your-repo
+```
+
+2. Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+3. Run the Flask app:
+
+```bash
+python app.py
+```
+
+4. Open in your browser at [http://localhost:5000](http://localhost:5000)
+
+---
+
+## Usage
+
+* You can find icons from catalog page which is released on github.
+* Select icon categories using the tabs.
+* Click the "Install" button to download the icon to the local folder.
+* Choose a desktop shortcut and apply the icon to it.
+
+---
+
+## Configuration
+
+* Paths are set in `config.py`:
+
+  ```python
+  icon_directory = os.path.join(base_path, 'static', 'icons')
+  desktop_path = get_desktop_path()
+  ```
+
+* Adjust `reformat_file()` in `main.py` if needed to prevent icons from being removed after download.
+
+---
+
+## Notes
+
+* Ensure the folder `static/icons/` exists and is writable.
+* Icons in `.ico` format display correctly and persist between sessions.
+* The app is Windows-only, as it manipulates `.lnk` shortcut files.
+
+---
 
 ## License
 
 This project is licensed under the MIT License.
-
