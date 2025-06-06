@@ -5,6 +5,8 @@ from main import change_existing_shortcut_icon, scan_directory, reformat_file
 from config import icon_directory, desktop_path
 import requests
 from flask_cors import CORS
+import webbrowser
+from threading import Timer
 
 app = Flask(__name__)
 CORS(app)
@@ -78,4 +80,6 @@ def download_icon():
 
 
 if __name__ == '__main__':
+    url = "https://artur-nayman.github.io/icon-db-wesite/"
+    Timer(1, lambda: webbrowser.open(url)).start()
     app.run(debug=True)
