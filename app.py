@@ -1,4 +1,4 @@
-#Run pyinstaller --onefile app.py to do exe file
+# Run pyinstaller --onefile app.py to create the .exe file
 from flask import Flask, render_template, request, jsonify
 import os
 from main import change_existing_shortcut_icon, scan_directory, reformat_file
@@ -13,11 +13,11 @@ CORS(app)
 @app.route('/')
 def index():
     try:
-        # Запускаємо обробку файлів перед відображенням
+        # Process files before rendering
         icon_files = [f for f in os.listdir(icon_directory) if f.endswith(('.ico', '.png'))]
         reformat_file(icon_files, icon_directory)
 
-        # Тепер вже зчитуємо лише .ico
+        # Now read only .ico files
         icons = [f for f in os.listdir(icon_directory) if f.endswith('.ico')]
         shortcuts = scan_directory(desktop_path)
         return render_template('index.html', icons=icons, shortcuts=shortcuts)
@@ -53,14 +53,13 @@ def select_icon():
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
 
-
 @app.route('/download_icon', methods=['POST'])
 def download_icon():
     data = request.get_json()
     icon_url = data.get('icon_url')
 
     if not icon_url:
-        return jsonify({"message": "URL не вказано"}), 400
+        return jsonify({"message": "URL not provided"}), 400
 
     try:
         icon_name = os.path.basename(icon_url)
@@ -72,16 +71,13 @@ def download_icon():
         with open(save_path, 'wb') as f:
             f.write(response.content)
 
-        return jsonify({"message": f"Іконка '{icon_name}' збережена!"})
+        return jsonify({"message": f"Icon '{icon_name}' has been saved!"})
 
     except Exception as e:
-        return jsonify({"message": f"Помилка: {str(e)}"}), 500
-
-
+        return jsonify({"message": f"Error: {str(e)}"}), 500
 
 if __name__ == '__main__':
     url = "https://artur-nayman.github.io/icon-db-wesite/"
     if not app.debug or os.environ.get("WERKZEUG_RUN_MAIN") == "true":
         webbrowser.open(url)
     app.run(debug=False)
-

@@ -6,33 +6,33 @@ from config import icon_directory
 
 def change_existing_shortcut_icon(shortcut_path, icon_path):
     if not os.path.exists(shortcut_path):
-        print(f"Помилка: файл ярлика не існує за шляхом {shortcut_path}")
+        print(f"Error: Shortcut file does not exist at path {shortcut_path}")
         return False
     if not os.path.exists(icon_path):
-        print(f"Помилка: файл іконки не існує за шляхом {icon_path}")
+        print(f"Error: Icon file does not exist at path {icon_path}")
         return False
 
     try:
-        # Ініціалізуємо COM-бібліотеку
+        # Initialize the COM library
         pythoncom.CoInitialize()
 
-        # Створюємо об'єкт WScript.Shell
+        # Create a WScript.Shell object
         shell = win32com.client.Dispatch("WScript.Shell")
 
-        # Завантажуємо існуючий ярлик
+        # Load the existing shortcut
         shortcut = shell.CreateShortCut(shortcut_path)
 
-        # Зміна іконки
+        # Change the icon
         shortcut.IconLocation = icon_path
         shortcut.Save()
 
-        print("Іконка успішно змінена.")
+        print("Icon changed successfully.")
         return True
     except Exception as e:
-        print(f"Помилка при зміні іконки: {e}")
+        print(f"Error while changing the icon: {e}")
         return False
     finally:
-        # Завершуємо роботу з COM-бібліотекою
+        # Uninitialize the COM library
         pythoncom.CoUninitialize()
 
 def scan_directory(directory_path):
@@ -44,7 +44,7 @@ def scan_directory(directory_path):
         ]
         return files
     except Exception as e:
-        print(f"Помилка при скануванні директорії: {e}")
+        print(f"Error while scanning the directory: {e}")
         return []
 
 def reformat_file(files, icon_directory):
@@ -57,4 +57,4 @@ def reformat_file(files, icon_directory):
             img.save(new_path, format='ICO')
             if file.lower().endswith('.png'):
                 os.remove(file_path)
-                print(f"Видалено оригінальний PNG: {file_path}")
+                print(f"Original PNG deleted: {file_path}")
