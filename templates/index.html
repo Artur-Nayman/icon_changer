@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,7 +11,7 @@
             background-color: #f9f9f9;
         }
 
-        /* Навбар */
+        /* Navbar */
         .navbar {
             height: 70px;
             background-color: #333;
@@ -39,13 +39,13 @@
             color: #ddd;
         }
 
-        /* Основний контейнер */
+        /* Main container */
         .main-container {
             display: flex;
             overflow: hidden;
         }
 
-        /* Іконки */
+        /* Icons */
         .icon-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
@@ -88,7 +88,7 @@
             display: none;
         }
 
-        /* Кнопка Встановити */
+        /* Install button */
         .install-btn {
             margin-top: 6px;
             font-size: 12px;
@@ -105,7 +105,7 @@
             background-color: #555;
         }
 
-        /* Бічна панель */
+        /* Sidebar */
         .sidebar {
             width: 300px;
             background-color: #ddd;
@@ -156,20 +156,20 @@
     </style>
 </head>
 <body>
-    <!-- Навбар -->
+    <!-- Navbar -->
     <div class="navbar">
-        <h1>📁 База іконок</h1>
+        <h1>📁 Icon Database</h1>
         <div class="nav-links">
-            <a href="https://artur-nayman.github.io/icon-db-wesite/" class="nav-link">Каталог</a>
-            <a href="http://127.0.0.1:5000" class="nav-link">Завантажені</a>
+            <a href="https://artur-nayman.github.io/icon-db-wesite/" class="nav-link">Catalog</a>
+            <a href="http://127.0.0.1:5000" class="nav-link">Uploaded</a>
         </div>
     </div>
 
-    <!-- Основний контейнер -->
+    <!-- Main container -->
     <div class="main-container">
-        <!-- Іконки -->
+        <!-- Icons -->
         <div class="icon-grid" id="iconGrid">
-            <!-- Іконки будуть вставлені сюди динамічно -->
+            <!-- Icons will be inserted here dynamically -->
             {% for icon in icons %}
             <div class="icon-wrapper" onclick="selectIcon('{{ icon }}')">
                 <img src="{{ url_for('static', filename='icons/' + icon) }}" alt="{{ icon }}">
@@ -178,10 +178,11 @@
             {% endfor %}
         </div>
 
-        <!-- Бічна панель -->
+
+        <!-- Sidebar -->
         <div class="sidebar">
             <div class="search-container">
-                <input type="text" id="searchInput" placeholder="Пошук..." onkeyup="filterIcons()">
+                <input type="text" id="searchInput" placeholder="Search..." onkeyup="filterIcons()">
             </div>
             <div class="shortcuts-list">
                 <h2>Shortcuts on desktop</h2>
@@ -196,7 +197,7 @@
 
     <script>
         function selectIcon(icon) {
-            const shortcutName = prompt("Введіть ім'я ярлика:");
+            const shortcutName = prompt("Enter shortcut name:");
             if (shortcutName) {
                 fetch('/select_icon', {
                     method: 'POST',
@@ -207,7 +208,7 @@
                 })
                 .then(response => response.json())
                 .then(data => {
-                    alert('Вибрана іконка: ' + data.icon + ' для ярлика: ' + data.shortcut);
+                    alert('Selected icon: ' + data.icon + ' for shortcut: ' + data.shortcut);
                 });
             }
         }
@@ -229,25 +230,24 @@
             }
         }
 
-
         document.addEventListener('DOMContentLoaded', () => {
-  // Знаходимо всі li у списку ярликів
-  const shortcutItems = document.querySelectorAll('.shortcuts-list ul li');
+            // Find all li elements in the shortcut list
+            const shortcutItems = document.querySelectorAll('.shortcuts-list ul li');
 
-  shortcutItems.forEach(item => {
-    item.style.cursor = 'pointer'; // Курсор, що показує, що елемент клікабельний
+            shortcutItems.forEach(item => {
+                item.style.cursor = 'pointer'; // Cursor indicates the item is clickable
 
-    item.addEventListener('click', () => {
-      const textToCopy = item.textContent.trim();
+                item.addEventListener('click', () => {
+                    const textToCopy = item.textContent.trim();
 
-      navigator.clipboard.writeText(textToCopy).then(() => {
-        alert(`"${textToCopy}" скопійовано в буфер обміну`);
-      }).catch(err => {
-        alert('Не вдалося скопіювати текст: ' + err);
-      });
-    });
-  });
-});
+                    navigator.clipboard.writeText(textToCopy).then(() => {
+                        alert(`"${textToCopy}" copied to clipboard`);
+                    }).catch(err => {
+                        alert('Failed to copy text: ' + err);
+                    });
+                });
+            });
+        });
     </script>
 </body>
 </html>
