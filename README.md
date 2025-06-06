@@ -27,6 +27,12 @@ This project allows you to:
 * HTML/CSS
 
 ---
+## 🎥 Demo
+
+[![Watch the video](https://img.youtube.com/vi/Rr20QJncsy4/maxresdefault.jpg)](https://youtu.be/Rr20QJncsy4)
+
+👉 Click the image to watch a short demo on YouTube.
+---
 
 ## Project Structure
 
