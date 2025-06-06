@@ -13,6 +13,7 @@ This project allows you to:
 * Search icons by name.
 * Apply selected icons to existing Windows desktop shortcuts.
 * Store icons locally so they persist after application restarts.
+* Project is connected t othis website https://github.com/Artur-Nayman/icon-db-wesite
 
 ---
 
