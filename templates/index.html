@@ -228,6 +228,26 @@
                 }
             }
         }
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+  // Знаходимо всі li у списку ярликів
+  const shortcutItems = document.querySelectorAll('.shortcuts-list ul li');
+
+  shortcutItems.forEach(item => {
+    item.style.cursor = 'pointer'; // Курсор, що показує, що елемент клікабельний
+
+    item.addEventListener('click', () => {
+      const textToCopy = item.textContent.trim();
+
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        alert(`"${textToCopy}" скопійовано в буфер обміну`);
+      }).catch(err => {
+        alert('Не вдалося скопіювати текст: ' + err);
+      });
+    });
+  });
+});
     </script>
 </body>
 </html>
