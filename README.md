@@ -66,7 +66,7 @@ python app.py
 
 ## Usage
 
-* Icons are automatically fetched from GitHub.
+* You can find icons from catalog page which is released on github.
 * Select icon categories using the tabs.
 * Click the "Install" button to download the icon to the local folder.
 * Choose a desktop shortcut and apply the icon to it.
