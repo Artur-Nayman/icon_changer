@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IconDB</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f9f9f9;
+        }
+
+        /* Навбар */
+        .navbar {
+            height: 70px;
+            background-color: #333;
+            color: #fff;
+            padding: 0px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-link {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .nav-link:hover {
+            color: #ddd;
+        }
+
+        /* Основний контейнер */
+        .main-container {
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* Іконки */
+        .icon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            padding-top: 25px;
+            max-width: calc(90% - 270px);
+            min-width: calc(90% - 270px);
+            margin: 0;
+            align-content: flex-start;
+        }
+
+        .icon-wrapper {
+            text-align: center;
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.2s ease;
+            cursor: pointer;
+        }
+
+        .icon-wrapper:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .icon-wrapper img {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+        }
+
+        .icon-label {
+            margin-top: 5px;
+            font-size: 13px;
+            word-break: break-word;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Кнопка Встановити */
+        .install-btn {
+            margin-top: 6px;
+            font-size: 12px;
+            padding: 4px 8px;
+            border: none;
+            border-radius: 4px;
+            background-color: #333;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .install-btn:hover {
+            background-color: #555;
+        }
+
+        /* Бічна панель */
+        .sidebar {
+            width: 300px;
+            background-color: #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            height: fit-content;
+            float: right;
+            margin: 20px;
+        }
+
+        .search-container {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .search-container input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        .shortcuts-list {
+            margin-top: 20px;
+        }
+
+        .shortcuts-list h2 {
+            text-align: center;
+        }
+
+        .shortcuts-list ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .shortcuts-list li {
+            padding: 8px;
+            margin: 5px 0;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 5px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- Навбар -->
+    <div class="navbar">
+        <h1>📁 База іконок</h1>
+        <div class="nav-links">
+            <a href="https://artur-nayman.github.io/icon-db-wesite/" class="nav-link">Каталог</a>
+            <a href="http://127.0.0.1:5000" class="nav-link">Завантажені</a>
+        </div>
+    </div>
+
+    <!-- Основний контейнер -->
+    <div class="main-container">
+        <!-- Іконки -->
+        <div class="icon-grid" id="iconGrid">
+            <!-- Іконки будуть вставлені сюди динамічно -->
+            {% for icon in icons %}
+            <div class="icon-wrapper" onclick="selectIcon('{{ icon }}')">
+                <img src="{{ url_for('static', filename='icons/' + icon) }}" alt="{{ icon }}">
+                <div class="icon-label">{{ icon }}</div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Бічна панель -->
+        <div class="sidebar">
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Пошук..." onkeyup="filterIcons()">
+            </div>
+            <div class="shortcuts-list">
+                <h2>Shortcuts on desktop</h2>
+                <ul>
+                    {% for shortcut in shortcuts %}
+                    <li>{{ shortcut }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function selectIcon(icon) {
+            const shortcutName = prompt("Введіть ім'я ярлика:");
+            if (shortcutName) {
+                fetch('/select_icon', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ icon: icon, shortcut: shortcutName }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert('Вибрана іконка: ' + data.icon + ' для ярлика: ' + data.shortcut);
+                });
+            }
+        }
+
+        function filterIcons() {
+            const input = document.getElementById('searchInput');
+            const filter = input.value.toUpperCase();
+            const iconGrid = document.getElementById('iconGrid');
+            const icons = iconGrid.getElementsByClassName('icon-wrapper');
+
+            for (let i = 0; i < icons.length; i++) {
+                const iconLabel = icons[i].getElementsByClassName('icon-label')[0];
+                const txtValue = iconLabel.textContent || iconLabel.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    icons[i].style.display = "";
+                } else {
+                    icons[i].style.display = "none";
+                }
+            }
+        }
+    </script>
+</body>
+</html>
