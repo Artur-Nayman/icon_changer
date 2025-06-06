@@ -16,9 +16,6 @@ This project allows you to:
 * Project is connected t othis website https://github.com/Artur-Nayman/icon-db-wesite
 
 ---
-# 🧩 Icon Changer
-
-A simple desktop icon changer with local web catalog. Instantly apply icons from a web UI to your desktop shortcuts.
 
 [![Discussions](https://img.shields.io/github/discussions/Artur-Nayman/personal-portfolio?label=Discuss%20on%20GitHub&logo=github)](https://github.com/Artur-Nayman/personal-portfolio/discussions)
 [![Try it now](https://img.shields.io/badge/Try%20it%20now-Demo-blue)](https://youtu.be/Rr20QJncsy4)
