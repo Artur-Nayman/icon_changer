@@ -76,5 +76,6 @@ def download_icon():
     except Exception as e:
         return jsonify({"message": f"Помилка: {str(e)}"}), 500
 
+
 if __name__ == '__main__':
     app.run(debug=True)
