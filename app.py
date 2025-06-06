@@ -1,4 +1,4 @@
-# Run pyinstaller --onefile app.py to create the .exe file
+# Run pyinstaller --onefile --add-data "static;static" --add-data "templates;templates" app.py to create the .exe file
 from flask import Flask, render_template, request, jsonify
 import os
 from main import change_existing_shortcut_icon, scan_directory, reformat_file
