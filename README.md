@@ -17,6 +17,53 @@ This project allows you to:
 
 ---
 
+[![Discussions](https://img.shields.io/github/discussions/Artur-Nayman/personal-portfolio?label=Discuss%20on%20GitHub&logo=github)](https://github.com/Artur-Nayman/personal-portfolio/discussions)
+[![Try it now](https://img.shields.io/badge/Try%20it%20now-Demo-blue)](https://youtu.be/Rr20QJncsy4)
+[![Show on Product Hunt](https://img.shields.io/badge/ProductHunt-Show%20on%20PH-red?logo=producthunt)](https://www.producthunt.com/posts/your-project-slug)
+
+---
+
+## 🎥 Demo
+
+[![Watch the video](https://img.youtube.com/vi/Rr20QJncsy4/maxresdefault.jpg)](https://youtu.be/Rr20QJncsy4)
+
+👉 Click the image to watch a short demo on YouTube.
+
+---
+
+## 🚀 Features
+
+- Web interface to browse and apply icons
+- Installs icons directly to the correct system folder
+- Auto-detects your desktop shortcuts
+- Replace icons with one click
+- Supports custom icons you drag & drop into the folder
+
+---
+
+## 📦 Installation
+Just download from releases setup file
+or
+1. Clone the repo
+2. Run the local server
+3. Open the web UI in your browser
+4. Choose and apply icons
+
+---
+
+## 💬 Feedback
+
+Have ideas or bugs to report? [Start a discussion](https://github.com/Artur-Nayman/personal-portfolio/discussions) or open an issue!
+
+---
+
+## 🐱 GitHub Discussions
+
+Want to share your thoughts or ask for feedback?
+👉 Visit the [Discussions tab](https://github.com/Artur-Nayman/personal-portfolio/discussions)
+
+---
+
 ## Technologies Used
 
 * Python 3.x
